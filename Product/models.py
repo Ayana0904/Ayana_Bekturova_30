@@ -1,6 +1,11 @@
 from django.db import models
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=100)
+    icon = models.CharField(max_length=100)
+
+
 class Product(models.Model):
     image = models.ImageField(blank=True, null=True)
     name = models.CharField(max_length=30)
@@ -9,3 +14,5 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
     is_available = models.BooleanField(default=True)
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
