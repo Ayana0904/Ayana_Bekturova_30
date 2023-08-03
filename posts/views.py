@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from posts.models import Post
+from posts.models import Post, Hashtag
 
 
 def main_view(request):
@@ -12,9 +12,29 @@ def posts_view(request):
         posts = Post.objects.all()
 
         context_data = {
-            'list_of_post': posts
+            'posts': posts
         }
 
         return render(request, 'posts/posts.html', context=context_data)
 
+
+def hashtags_view(request):
+    if request.method == 'GET':
+        hashtags = Hashtag.objects.all()
+        context_data = {
+            'hashtags': hashtags
+        }
+        return render(request, 'posts/hashtags/hashtags.html', context=context_data)
+
+
+def post_detail_view(request, id):
+    if request.method == 'GET':
+        post = Post.objects.get(id=id)
+        print(post)
+
+        context_data = {
+            'post': post
+        }
+
+        return render(request, 'posts/detail.html', context=context_data)
 
